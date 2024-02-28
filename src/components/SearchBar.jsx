@@ -23,8 +23,8 @@ export const SearchBar = ({ fetchData }) => {
     }
 
     return (
-        <div className='relative rounded-[25px] w-[478px] h-[52px] bg-white flex items-center gap-2 px-[25px]'>
-            <input type="text" value={value} onChange={onChange} className='h-full w-full bg-transparent focus:outline-none' />
+        <div id='search-parent' className='relative rounded-[25px] w-[478px] h-[52px] bg-white flex items-center gap-2 px-[25px]'>
+            <input type="text" value={value} onChange={onChange} onBlur={() => setTimeout(() => { setResults(null) }, 100)} className='h-full w-full bg-transparent focus:outline-none' />
             <button onClick={() => fetchData(encodeURI(value))} className='hover:bg-slate-300 p-2 rounded'><IoSearchOutline size={24} cursor={'pointer'} /></button>
             {results && <div className='absolute top-[105%] left-0 w-full p-1 rounded-sm bg-white'>
                 {results.map((

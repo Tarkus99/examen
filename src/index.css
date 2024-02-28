@@ -4,6 +4,12 @@
 
 @layer base {
   body {
-    background-color: rgb(53, 143, 185);
+    background: url('https://images.pexels.com/photos/1227513/pexels-photo-1227513.jpeg?cs=srgb&dl=pexels-oleksandr-p-1227513.jpg&fm=jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
   }
+}
+
+#search-parent:focus-within{
+  box-shadow: 0px 0px 1px 4px cadetblue;
 }

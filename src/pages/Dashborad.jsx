@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react'
 import { SearchBar } from '../components/SearchBar'
 import { getForecast, getForecastFromCoordinates } from '../fetching'
 import { DateTime } from 'luxon'
-import { CurrentInfo } from '../components/CurrentInfo'
 import { Oval } from 'react-loader-spinner'
 import { CurrentInfoDetail } from '../components/CurrentInfoDetail'
+import uuid from 'react-uuid'
 
 export const Dashborad = () => {
 
@@ -23,8 +23,8 @@ export const Dashborad = () => {
         if (navigator.geolocation) {
             (navigator.geolocation.getCurrentPosition((position) => {
                 getForecastFromCoordinates(position.coords.latitude, position.coords.longitude)
-                    .then(info => { console.log(info); setData(info) })
-                    .catch(err => { console.log(err); alert('Se ha producido un error') })
+                    .then(info => { setData(info) })
+                    .catch(err => { alert('Se ha producido un error') })
                     .finally(() => setLoading(false))
             }));
         } else {
@@ -33,7 +33,7 @@ export const Dashborad = () => {
     }, [])
 
     return (
-        <main className='p-5 w-10/12 mx-auto flex flex-col gap-10 items-center bg-cyan-700 rounded-sm relative'>
+        <main className='p-5 mt-5 w-10/12 mx-auto flex flex-col gap-10 items-center bg-cyan-700/90 rounded-sm relative'>
             <SearchBar fetchData={fetchData} />
             <h1 className='text-4xl text-white text-center'>PREDICCIÓN  5 DÍAS <br></br> <i className='text-emerald-400'>{data ? `${data.city.name}, ${data.city.country}` : ''}</i></h1>
             <div className='grid grid-cols-5 gap-5 w-full relative min-h-[20vh]'>
@@ -46,7 +46,7 @@ export const Dashborad = () => {
                 })
                     .map((item, index) => {
                         if (index < 5)
-                            return <CurrentInfoDetail data={item} />
+                            return <CurrentInfoDetail key={uuid()} data={item} />
                     })}
             </div>
         </main>
